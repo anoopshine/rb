@@ -3,7 +3,6 @@ const Navigation = () => {
   const location = useLocation();
   
   return (
-    console.log('Current Path:', location),
     <nav className="navbar">
       <div className="nav-container">
         <h1 className="nav-title">My App</h1>
