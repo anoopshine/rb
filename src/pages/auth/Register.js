@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import '../../style/RegisterLogin.css';
+import axios from 'axios';
 
+// API configuration
+const API_BASE_URL = 'http://192.168.10.7:8080/api/';
+
+// Configure axios defaults
+axios.defaults.baseURL = API_BASE_URL;
+axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 // Register Component
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -88,7 +96,7 @@ const Register = () => {
     return newErrors;
   };
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitted(true);
 
@@ -104,23 +112,113 @@ const Register = () => {
       return;
     }
 
-    setErrors({});
-    Swal.fire({
-      title: 'Registration Successful!',
-      text: 'Your account has been created successfully. Please check your email for verification.',
-      icon: 'success'
-    });
-    
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      agreeToTerms: false
-    });
-    setIsSubmitted(false);
+    // setErrors({});
+ try {
+      // Clear previous errors
+      setErrors({});
+
+      // Prepare data for API (combine first and last name)
+      const apiData = {
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.confirmPassword
+      };
+
+      // Make API call to Laravel backend
+       const response = await axios.post('register', apiData);
+      if (response.data.success) {
+        // Store token in localStorage
+        const { access_token, user } = response.data.data;
+        localStorage.setItem('auth_token', access_token);
+        localStorage.setItem('user_data', JSON.stringify(user));
+
+        // Set authorization header for future requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+
+        // Success message
+        Swal.fire({
+          title: 'Registration Successful!',
+          text: `Welcome ${user.name}! Your account has been created successfully.`,
+          icon: 'success',
+          confirmButtonText: 'Continue'
+        }).then(() => {
+          // Redirect to dashboard or login page
+          // window.location.href = '/home'; // or use React Router navigate
+        });
+
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          agreeToTerms: false
+        });
+        setIsSubmitted(false);
+      }
+
+    } catch (error) {
+      console.error('Registration error:', error);
+      
+      if (error.response) {
+        // Server responded with error status
+        const { status, data } = error.response;
+        
+        if (status === 422) {
+          // Validation errors from server
+          if (data.errors) {
+            const serverErrors = {};
+            Object.keys(data.errors).forEach(key => {
+              // Map server field names to form field names
+              if (key === 'name') {
+                serverErrors.firstName = data.errors[key][0];
+              } else if (key === 'email') {
+                serverErrors.email = data.errors[key][0];
+              } else if (key === 'password') {
+                serverErrors.password = data.errors[key][0];
+              }
+            });
+            setErrors(serverErrors);
+          }
+          
+          Swal.fire({
+            title: 'Validation Error',
+            text: data.message || 'Please check your input and try again.',
+            icon: 'error'
+          });
+        } else if (status === 500) {
+          Swal.fire({
+            title: 'Server Error',
+            text: 'Something went wrong on our end. Please try again later.',
+            icon: 'error'
+          });
+        } else {
+          Swal.fire({
+            title: 'Registration Failed',
+            text: data.message || 'An unexpected error occurred.',
+            icon: 'error'
+          });
+        }
+      } else if (error.request) {
+        // Network error
+        Swal.fire({
+          title: 'Network Error',
+          text: 'Unable to connect to the server. Please check your internet connection.',
+          icon: 'error'
+        });
+      } else {
+        // Other error
+        Swal.fire({
+          title: 'Error',
+          text: 'An unexpected error occurred. Please try again.',
+          icon: 'error'
+        });
+      }
+    } finally {
+      // setIsLoading(false);
+    }
   };
 
   const getInputClass = (fieldName) => {
