@@ -10,7 +10,6 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    phone: '',
     agreeToTerms: false
   });
 
@@ -81,11 +80,6 @@ const Register = () => {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
-    // Phone validation (optional but if provided, should be valid)
-    if (formData.phone && !/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-      newErrors.phone = 'Please enter a valid 10-digit phone number';
-    }
-
     // Terms agreement validation
     if (!formData.agreeToTerms) {
       newErrors.agreeToTerms = 'You must agree to the terms and conditions';
@@ -124,7 +118,6 @@ const Register = () => {
       email: '',
       password: '',
       confirmPassword: '',
-      phone: '',
       agreeToTerms: false
     });
     setIsSubmitted(false);
@@ -199,20 +192,6 @@ const Register = () => {
               placeholder="Enter your email address"
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className={getInputClass('phone')}
-              placeholder="Enter your phone number (optional)"
-            />
-            {errors.phone && <span className="error-message">{errors.phone}</span>}
           </div>
 
           <div className="form-group">

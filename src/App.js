@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import FooterNavigation from './components/FooterNavigation';
 import Home from './pages/basic-page/Home';
 import About from './pages/basic-page/About';
 import Contact from './pages/basic-page/Contact';
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
+        <FooterNavigation />
       </div>
     </Router>
   );

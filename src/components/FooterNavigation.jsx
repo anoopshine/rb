@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-const Navigation = () => {
+const FooterNavigation = () => {
   const location = useLocation();
   
   return (
-    <nav className="navbar">
-      <div className="nav-container">
-        <h1 className="nav-title">RB Software</h1>
+    <nav className="navbar footer-navbar">
+      <div className="nav-container footer-nav-container">
+        <h1 className="nav-title footer-tile">RB</h1>
         <ul className="nav-links">
           <li>
             <Link 
@@ -15,21 +15,20 @@ const Navigation = () => {
               Home
             </Link>
           </li>
-
-            <li>
+          <li>
             <Link 
-              to="/register" 
-              className={location.pathname === '/register' ? 'nav-link active' : 'nav-link'}
+              to="/about" 
+              className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}
             >
-              Register
+              About
             </Link>
           </li>
-            <li>
+          <li>
             <Link 
-              to="/login" 
-              className={location.pathname === '/login' ? 'nav-link active' : 'nav-link'}
+              to="/contact" 
+              className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}
             >
-              Login
+              Contact Us
             </Link>
           </li>
         </ul>
@@ -37,4 +36,4 @@ const Navigation = () => {
     </nav>
   );
 };
-export default Navigation;
+export default FooterNavigation;

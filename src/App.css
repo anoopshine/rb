@@ -20,11 +20,10 @@ body {
 
 /* Navigation Styles */
 .navbar {
-  background-color: #0b0e24;
-  padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #1e093bde;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -184,4 +183,7 @@ body {
   .page h1 {
     font-size: 2rem;
   }
+}
+main {
+    min-height: calc(100vh - 190px);
 }
