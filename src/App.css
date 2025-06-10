@@ -14,7 +14,8 @@ body {
 }
 
 .App {
-  min-height: 100vh;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Navigation Styles */
@@ -62,27 +63,36 @@ body {
 }
 /* Page Styles */
 .page {
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: 0 auto;
   padding: 2rem 1rem;
 }
-
+.page {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    align-items: baseline;
+    margin-top: 62px;
+}
 .page h1 {
   color: #1f2937;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   font-size: 2.5rem;
 }
 
 .page h2 {
   color: #374151;
-  margin: 2rem 0 1rem 0;
+  /* margin: 2rem 0 1rem 0; */
   font-size: 1.5rem;
 }
 
 .page p {
   color: #6b7280;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 /* Button Styles */

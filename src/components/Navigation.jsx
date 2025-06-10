@@ -31,6 +31,22 @@ const Navigation = () => {
               Contact
             </Link>
           </li>
+            <li>
+            <Link 
+              to="/register" 
+              className={location.pathname === '/register' ? 'nav-link active' : 'nav-link'}
+            >
+              Register
+            </Link>
+          </li>
+            <li>
+            <Link 
+              to="/login" 
+              className={location.pathname === '/login' ? 'nav-link active' : 'nav-link'}
+            >
+              Login
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
