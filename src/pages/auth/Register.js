@@ -4,7 +4,7 @@ import '../../style/RegisterLogin.css';
 import axios from 'axios';
 
 // API configuration
-const API_BASE_URL = 'http://192.168.10.7:8080/api/';
+const API_BASE_URL = 'http://192.168.10.7:8086/api/';
 
 // Configure axios defaults
 axios.defaults.baseURL = API_BASE_URL;

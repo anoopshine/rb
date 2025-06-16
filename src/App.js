@@ -7,6 +7,9 @@ import Contact from './pages/basic-page/Contact';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import NotFound from './pages/basic-page/NotFound';
+import AddProduct from './pages/product/Create';  
+import EditProduct from './pages/product/Edit';
+import ProductIndex from './pages/product/Index';
 import './App.css';
 const App = () => {
   return (
@@ -20,6 +23,9 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/products" element={<ProductIndex />} />
+            <Route path="/products/add" element={<AddProduct />} />
+            <Route path="/products/edit/:id" element={<EditProduct />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

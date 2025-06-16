@@ -24,12 +24,28 @@ const Navigation = () => {
               Register
             </Link>
           </li>
-            <li>
+          <li>
             <Link 
               to="/login" 
               className={location.pathname === '/login' ? 'nav-link active' : 'nav-link'}
             >
               Login
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/products/add" 
+              className={location.pathname === '/products/add' ? 'nav-link active' : 'nav-link'}
+            >
+              Add Product
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/products" 
+              className={location.pathname === '/products' ? 'nav-link active' : 'nav-link'}
+            >
+             Products
             </Link>
           </li>
         </ul>
